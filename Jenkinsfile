@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     environment {
         // Define any environment variables
         DOCKER_IMAGE_NAME = "nextjs-app"
