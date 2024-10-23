@@ -10,7 +10,7 @@ pipeline {
     }
 
     stages {
-        stage('Unzip File') {
+        stage('Unzip File ') {
             steps {
                 script {
                     // Unzip the uploaded ZIP file into the workspace directory
