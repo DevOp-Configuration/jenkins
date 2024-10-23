@@ -27,29 +27,26 @@ pipeline {
                     // Create a Dockerfile in the unzipped directory
                     echo "Creating Dockerfile..."
                     writeFile file: "${UNZIPPED_DIR}/Dockerfile", text: """
-                    # Base image
-                    FROM node:18-alpine
+                    # Use an official Node.js runtime as a parent image
+                        FROM node:20.5.0 AS nextjs-build
 
-                    # Set working directory
-                    WORKDIR /app
+                        # Set the working directory
+                        WORKDIR /app
 
-                    # Copy package.json and package-lock.json
-                    COPY package*.json ./
-
-                    # Install dependencies
-                    RUN yarn install --only=production
-
-                    # Copy the rest of the application files
-                    COPY . .
-
-                    # Build the Next.js application
-                    RUN yarn run build
-
-                    # Expose the port that Next.js will run on
-                    EXPOSE 3000
-
-                    # Start the Next.js app
-                    CMD ["yarn", "start"]
+                        # Copy package.json
+                        COPY package.json ./
+                        
+                        # Install dependencies using YARN
+                        RUN yarn install
+                        
+                        # Copy the rest of your app's source code
+                        COPY . .
+                        
+                        # Build your Next JS application
+                        RUN yarn run build
+                        
+                        # Run React JS Project
+                        CMD ["yarn", "start"]
                     """
                 }
             }
